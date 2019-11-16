@@ -38,18 +38,19 @@ public class HelloWorldClientMain {
         ChronicleQueue inputQ = SingleChronicleQueueBuilder.binary(input).build();
         HelloWorld helloWorld = inputQ.createAppender().methodWriter(HelloWorld.class);
 
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            while (System.currentTimeMillis() < lastUpdate.get() + 30)
-                Thread.yield();
-
-            out.print("Chat ");
-            out.flush();
-            if (!scanner.hasNextLine())
-                break;
-            String line = scanner.nextLine();
-            helloWorld.hello(line);
-            lastUpdate.set(System.currentTimeMillis());
+        try (Scanner scanner = new Scanner(System.in)) {
+	        while (true) {
+	            while (System.currentTimeMillis() < lastUpdate.get() + 30)
+	                Thread.yield();
+	
+	            out.print("Chat ");
+	            out.flush();
+	            if (!scanner.hasNextLine())
+	                break;
+	            String line = scanner.nextLine();
+	            helloWorld.hello(line);
+	            lastUpdate.set(System.currentTimeMillis());
+	        }
         }
         out.print("Bye");
     }

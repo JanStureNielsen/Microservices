@@ -14,7 +14,7 @@ public class OrderManagerPerfMain {
         int RUNS = 1000000;
         try (ChronicleQueue input = SingleChronicleQueueBuilder.binary(OS.TMP + "/order-input").build();
              ChronicleQueue output = SingleChronicleQueueBuilder.binary(OS.TMP + "/order-output").build()) {
-            OrderIdeaListener ideaListener = input.createAppender().methodWriter(OrderIdeaListener.class);
+            OrderIdeaListener ideaListener = input.acquireAppender().methodWriter(OrderIdeaListener.class);
             MethodReader reader = output.createTailer().methodReader((OrderListener) m -> {
             });
             for (int t = 0; t < 10; t++) {

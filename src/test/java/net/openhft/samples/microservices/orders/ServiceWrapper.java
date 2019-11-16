@@ -28,7 +28,7 @@ public class ServiceWrapper<I extends ServiceHandler> implements Runnable, Close
         Class outClass = ObjectUtils.getTypeFor(serviceImpl.getClass(), ServiceHandler.class);
 
         outputQueue = SingleChronicleQueueBuilder.binary(outputPath).build();
-        serviceOut = outputQueue.createAppender().methodWriter(outClass);
+        serviceOut = outputQueue.acquireAppender().methodWriter(outClass);
         serviceImpl.init(serviceOut);
 
         inputQueue = SingleChronicleQueueBuilder.binary(inputPath).build();

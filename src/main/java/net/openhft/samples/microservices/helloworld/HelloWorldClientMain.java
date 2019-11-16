@@ -36,7 +36,7 @@ public class HelloWorldClientMain {
         thread.start();
 
         ChronicleQueue inputQ = SingleChronicleQueueBuilder.binary(input).build();
-        HelloWorld helloWorld = inputQ.createAppender().methodWriter(HelloWorld.class);
+        HelloWorld helloWorld = inputQ.acquireAppender().methodWriter(HelloWorld.class);
 
         try (Scanner scanner = new Scanner(System.in)) {
 	        while (true) {

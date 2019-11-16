@@ -14,7 +14,7 @@ public class HelloWorldPerfMain {
         int RUNS = 1000000;
         try (ChronicleQueue input = SingleChronicleQueueBuilder.binary(OS.TMP + "/input").build();
              ChronicleQueue output = SingleChronicleQueueBuilder.binary(OS.TMP + "/output").build()) {
-            HelloWorld helloWorld = input.createAppender().methodWriter(HelloWorld.class);
+            HelloWorld helloWorld = input.acquireAppender().methodWriter(HelloWorld.class);
             MethodReader reader = output.createTailer().methodReader((HelloReplier) m -> {
             });
             for (int t = 0; t < 10; t++) {

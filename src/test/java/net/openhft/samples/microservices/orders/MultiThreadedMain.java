@@ -44,7 +44,7 @@ public class MultiThreadedMain {
 
         @Override
         public void init(JLBH jlbh) {
-            serviceIn = SingleChronicleQueueBuilder.binary(queueIn).build().createAppender().methodWriter(Service.class);
+            serviceIn = SingleChronicleQueueBuilder.binary(queueIn).build().acquireAppender().methodWriter(Service.class);
             service2 = new ServiceWrapper<>(queueIn, queue2, new ServiceImpl(jlbh.addProbe("Service 2")));
             service3 = new ServiceWrapper<>(queue2, queue3, new ServiceImpl(jlbh.addProbe("Service 3")));
             serviceOut = new ServiceWrapper<>(queue3, queueOut, new ServiceImpl(jlbh.addProbe("Service Out"), jlbh));
